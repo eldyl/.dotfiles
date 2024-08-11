@@ -1,0 +1,10 @@
+[user]
+	name = Dylan Ullrich
+	email = dylan@eldyl.org
+	signingkey = D345E416183617A51DBF3F0A0C8A79F13669C419
+[init]
+	defaultbranch = main
+[pull]
+	ff = only
+[commit]
+	gpgsign = true

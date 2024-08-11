@@ -1,0 +1,14 @@
+#!/bin/zsh
+emulate -L zsh
+setopt $_autocomplete__func_opts[@]
+
+if (( YANK_ACTIVE )); then
+  local before
+  (( YANK_START <= CURSOR && YANK_END <= CURSOR )) &&
+      before=before
+  builtin zle -f yank$before
+  return 1  # Tell caller to abort.
+fi
+
+builtin zle -f kill
+return 0

@@ -1,0 +1,261 @@
+#https://i3wm.org/docs/userguide.html
+set $mod Mod4
+set $alt Mod1
+
+# Font for window titles. Will also be used by the bar unless a different font
+font pango: GeistMonoNerdFont:weight=bold 14
+
+# Set modifier key
+floating_modifier $mod
+
+# move tiling windows via drag & drop by left-clicking into the title bar
+tiling_drag modifier titlebar
+
+# borders
+default_border pixel 2
+
+# Create gaps to accomodate single window on UW Monitor
+smart_gaps inverse_outer
+gaps horizontal 300
+
+#####################
+# Monitors
+#####################
+
+# Assign monitors, resolutions/refressh rates, and positions with nvidia-settings
+exec --no-startup-id "nvidia-settings -a CurrentMetaMode='DP-0: 3440x1440_165 +0+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On, AllowGSYNCCompatible=On}' && nitrogen --restore"
+
+set $firstMonitor DP-0
+set $secondMonitor HDMI-0
+
+#####################
+## Audio Control
+#####################
+
+# Use pactl to adjust volume in PulseAudio.
+set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+# Media player controls
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioPause exec --no-startup-id playerctl pause-pause
+bindsym XF86AudioStop exec --no-startup-id playerctl stop 
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+
+
+#####################
+# Launch on startup
+#####################
+
+# Polybar
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+# Autotiling for polybar
+exec_always --no-startup-id autotiling
+# Clipboard manager daemon
+exec_always --no-startup-id clipcatd
+
+# Easy effects for audio
+exec --no-startup-id easyeffects --gapplication-service
+# Start keepassxc
+exec --no-startup-id keepassxc
+# Notifications
+exec --no-startup-id deadd-notification-center
+# Opensnitch
+exec --no-startup-id opensnitch-ui
+# Launch syncthing
+exec --no-startup-id syncthingtray --wait
+# Launch protonmail bridge in non interactive mode
+exec --no-startup-id sleep 5; protonmail-bridge-core -n;
+
+#####################
+# KEYBINDINGS
+#####################
+
+# Defaults
+set $terminal wezterm
+set $filebrowser pcmanfm
+set $browser firefox-developer-edition
+
+# Terminal
+bindsym $mod+Return workspace number $ws1 exec pgrep $terminal || $terminal
+bindsym $mod+Shift+Return exec $terminal start --always-new-process
+
+# File browser
+bindsym $mod+f exec $filebrowser
+
+# Browser
+bindsym $mod+b workspace number $ws2 exec pgrep firefox || $browser
+bindsym $mod+Shift+b exec $browser
+
+# Lock screen
+bindsym $mod+shift+l exec --no-startup-id i3lock --color=000000 
+# Notification center
+bindsym $mod+u exec kill -s USR1 $(pidof deadd-notification-center)
+# Audio 
+bindsym $mod+v exec pavucontrol
+# Notes
+bindsym $mod+h workspace number $ws0 exec xdotool search --class obsidian || obsidian
+# Pass
+bindsym $mod+p exec keepassxc
+
+# Email
+bindsym $mod+m workspace number $ws3 exec proton-mail
+bindsym $mod+Shift+m workspace number $ws3 exec thunderbird
+
+# Chat
+bindsym $mod+t workspace number $ws4 exec element-desktop
+bindsym $mod+d workspace number $ws4 exec webcord
+
+# Youtubes
+bindsym $mod+y workspace number $ws6 exec freetube
+
+#####################
+## Clipboard manager
+## deps: clipcat
+#####################
+
+bindsym $mod+$alt+p exec "clipcat-menu insert"
+bindsym $mod+$alt+r exec "clipcat-menu remove"
+bindsym $mod+$alt+a exec "clipcatctl clear"
+
+#####################
+# Screenshot Utils
+# deps: maim, xclip
+#####################
+
+# Select area, copy to clipboard 
+bindsym $mod+s exec --no-startup-id "maim -s | xclip -selection clipboard -t image/png"
+# Select area, save to screenshot folder
+bindsym $mod+$alt+s exec --no-startup-id "maim -s ~/Pictures/Screenshots/$(date +%Y-%b-%d--%H-%M-%S | tr A-Z a-z).png"
+
+#####################
+# Launcher
+# deps: rofi, rofi-calc, rofimoji
+#####################
+
+bindsym $mod+l exec --no-startup-id "rofi -show combi -combi-modes 'window,drun' -modes combi"
+bindsym $mod+x exec --no-startup-id "~/scripts/script-launcher.sh"
+bindsym $mod+$alt+c exec --no-startup-id "rofi -show calc -modi calc -no-show-match -no-sort"
+bindsym $mod+$alt+e exec --no-startup-id rofimoji
+
+#####################
+# Workspaces
+#####################
+
+# Set workspaces
+set $ws0 "0"
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+
+# Assign to monitors
+workspace 0 output $firstMonitor
+workspace 1 output $firstMonitor
+workspace 2 output $firstMonitor
+workspace 3 output $firstMonitor
+workspace 4 output $firstMonitor
+workspace 5 output $firstMonitor
+workspace 6 output $firstMonitor
+workspace 7 output $firstMonitor
+workspace 8 output $firstMonitor
+workspace 9 output $firstMonitor
+
+# # Move to desired monitor
+bindsym $mod+Shift+Control+p move workspace to output DP-0
+bindsym $mod+Shift+Control+s move workspace to output HDMI-0
+
+# Next and previus workspaces
+bindsym $mod+Tab workspace next
+bindsym $mod+space workspace prev
+bindsym $mod+Shift+Tab move container to workspace next
+bindsym $mod+Shift+space move container to workspace prev
+
+# switch to workspace
+bindsym $mod+0 workspace number $ws0
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+
+# move focused container to workspace
+bindsym $mod+Shift+0 move container to workspace number $ws0
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+
+#####################
+# Window Management
+#####################
+
+# enter fullscreen mode for the focused container
+bindsym $mod+BackSpace fullscreen toggle
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# Make the currently focused window a scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the first scratchpad window
+bindsym $mod+minus scratchpad show
+
+# change focus
+bindsym $mod+n focus left
+bindsym $mod+e focus down
+bindsym $mod+i focus up
+bindsym $mod+o focus right
+
+# move focused window
+bindsym $mod+Shift+n move left
+bindsym $mod+Shift+e move down
+bindsym $mod+Shift+i move up
+bindsym $mod+Shift+o move right
+
+# resize window
+bindsym $mod+Shift+Control+n resize shrink width 10 px or 10 ppt
+bindsym $mod+Shift+Control+e resize shrink height 10 px or 10 ppt
+bindsym $mod+Shift+Control+i resize grow height 10 px or 10 ppt
+bindsym $mod+Shift+Control+o resize grow width 10 px or 10 ppt
+
+# toggle split mode
+bindsym $mod+Shift+s layout toggle split
+
+# toggle tabbed mode
+bindsym $mod+Shift+t layout tabbed
+
+# toggle floating mode
+bindsym $mod+Shift+BackSpace floating toggle
+
+#####################
+# i3 Session
+#####################
+
+# reload the configuration file
+bindsym $mod+Shift+Control+c reload
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+Control+r restart
+
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+Control+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
