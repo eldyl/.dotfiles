@@ -15,7 +15,7 @@ return {
           enabled = true,
           -- set to `nil` to default
           -- to current working directory
-          location = "~/Documents/nvim_scratch",
+          location = nil,
         },
         bo = {
           filetype = "md",

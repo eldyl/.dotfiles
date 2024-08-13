@@ -28,13 +28,14 @@ return {
         desc = "View Git Commits for buffer via Telescope",
       },
       -- Actions
-      { "<leader>gC", "<cmd>Git commit<cr>", desc = "Create commit" },
+      { "<leader>gC", "<cmd>Git commit<cr>", desc = "Git Commit" },
       {
         "<leader>gR",
         "<cmd>Git rebase -i<cr>",
         desc = "Start interactive rebase",
       },
-      { "<leader>gP", "<cmd>Git push<cr>", desc = "Push commit" },
+      { "<leader>gP", "<cmd>Git push<cr>", desc = "Git Push" },
+      { "<leader>gp", "<cmd>Git pull<cr>", desc = "Git Pull" },
     },
   },
 
