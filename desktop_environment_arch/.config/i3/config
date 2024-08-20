@@ -208,6 +208,11 @@ bindsym $mod+Shift+9 move container to workspace number $ws9
 # Window Management
 #####################
 
+set $left "n"
+set $down "e"
+set $up "i"
+set $right "o"
+
 # enter fullscreen mode for the focused container
 bindsym $mod+BackSpace fullscreen toggle
 
@@ -221,22 +226,22 @@ bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
 # change focus
-bindsym $mod+n focus left
-bindsym $mod+e focus down
-bindsym $mod+i focus up
-bindsym $mod+o focus right
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
 
 # move focused window
-bindsym $mod+Shift+n move left
-bindsym $mod+Shift+e move down
-bindsym $mod+Shift+i move up
-bindsym $mod+Shift+o move right
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
 
 # resize window
-bindsym $mod+Shift+Control+n resize shrink width 10 px or 10 ppt
-bindsym $mod+Shift+Control+e resize shrink height 10 px or 10 ppt
-bindsym $mod+Shift+Control+i resize grow height 10 px or 10 ppt
-bindsym $mod+Shift+Control+o resize grow width 10 px or 10 ppt
+bindsym $mod+Shift+Control+$left resize shrink width 10 px or 10 ppt
+bindsym $mod+Shift+Control+$down resize shrink height 10 px or 10 ppt
+bindsym $mod+Shift+Control+$up resize grow height 10 px or 10 ppt
+bindsym $mod+Shift+Control+$right resize grow width 10 px or 10 ppt
 
 # toggle split mode
 bindsym $mod+Shift+s layout toggle split
