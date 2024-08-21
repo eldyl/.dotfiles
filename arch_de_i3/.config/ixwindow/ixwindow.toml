@@ -1,0 +1,32 @@
+[i3]
+# Folder for cached icons
+cache_dir = "$HOME/.config/polybar/scripts/ixwindow/polybar-icons"
+
+# Size of the icon
+size = 24
+
+# Background color of your polybar
+color = "#24283b"
+
+# Absolute coordinates of icon
+x = 1640
+y = 6
+
+# Amount of spaces in the title of the module, before title of the window
+# This is to be adjusted together with coordinates of the icon to achieve the
+# best result
+gap = 9
+
+# Gap per desk is needed for "shifting" the icon and is approximately equal to
+# size of the icon, because new desktop icon occupies around this space
+gap_per_desk = 24
+
+
+# This section configures the way information about the window gets printed.
+[i3.print_info]
+# Type of the info of the window, that will be printed on the bar. If more
+# than one is specified, then program will print the first not null of them
+# (in the given order)
+types = ["_NET_WM_NAME", "WM_INSTANCE"]
+# When this setting is not present, the whole info will be printed
+max_len = 30
