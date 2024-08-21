@@ -14,13 +14,7 @@ config.underline_position = -2.5
 config.underline_thickness = 3
 config.font_size = 16
 config.scrollback_lines = 11000
-config.window_decorations = "RESIZE" -- Remove the window bar
-config.window_padding = {
-  left = 5,
-  right = 5,
-  top = 0,
-  bottom = 0,
-}
+-- config.window_decorations = "RESIZE" -- Remove the window bar
 
 -- Apply config modules
 colors.apply_to_config(config)
