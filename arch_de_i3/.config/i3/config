@@ -15,9 +15,9 @@ tiling_drag modifier titlebar
 default_border pixel 2
 
 # Create gaps to accomodate single window on UW Monitor
-smart_gaps inverse_outer
-gaps horizontal 300
-
+# smart_gaps inverse_outer
+gaps horizontal 350
+gaps top 33
 #####################
 #   Audio Control
 #####################
@@ -45,12 +45,11 @@ bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 # Startup
 #---------
 
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec_always --no-startup-id $HOME/.config/polybar/scripts/launch.sh
 exec_always --no-startup-id autotiling
 exec_always --no-startup-id clipcatd
 
 exec --no-startup-id "nvidia-settings -a CurrentMetaMode='DP-0: 3440x1440_165 +0+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On, AllowGSYNCCompatible=On}' && nitrogen --restore"
-exec --no-startup-id picom -b
 exec --no-startup-id easyeffects --gapplication-service
 exec --no-startup-id keepassxc
 exec --no-startup-id deadd-notification-center
@@ -204,6 +203,9 @@ set $right "o"
 
 # enter fullscreen mode for the focused container
 bindsym $mod+BackSpace fullscreen toggle
+
+# Center window
+bindsym $mod+c gaps horizontal current toggle 350
 
 # kill focused window
 bindsym $mod+Shift+q kill
