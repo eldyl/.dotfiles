@@ -10,7 +10,7 @@ color = "#24283b"
 
 # Absolute coordinates of icon
 
-x = 730
+x = 580
 y = 6
 
 # Amount of spaces in the title of the module, before title of the window
