@@ -74,7 +74,7 @@ bindsym $mod+Shift+Return exec $terminal start --always-new-process
 bindsym $mod+f exec $filebrowser
 
 # Browsers
-bindsym $mod+b workspace number $ws3 exec pgrep $browser || $browser
+bindsym $mod+b workspace number $ws3 exec xdotool search --class zen-alpha || $browser
 bindsym $mod+Shift+b workspace number $ws3 exec pgrep $browser_secondary || $browser_secondary 
 
 # Lock screen
