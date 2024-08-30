@@ -63,7 +63,7 @@ exec --no-startup-id sleep 5; protonmail-bridge-core -n;
 
 set $terminal wezterm
 set $filebrowser pcmanfm
-set $browser firefox-developer-edition
+set $browser /opt/zen-browser-bin/zen-bin
 set $browser_secondary brave
 
 # Terminal
@@ -74,7 +74,7 @@ bindsym $mod+Shift+Return exec $terminal start --always-new-process
 bindsym $mod+f exec $filebrowser
 
 # Browsers
-bindsym $mod+b workspace number $ws3 exec pgrep firefox || $browser
+bindsym $mod+b workspace number $ws3 exec pgrep -f $browser || $browser
 bindsym $mod+Shift+b workspace number $ws3 exec pgrep $browser_secondary || $browser_secondary 
 
 # Lock screen
@@ -205,7 +205,7 @@ set $right "o"
 bindsym $mod+BackSpace fullscreen toggle
 
 # Center window
-bindsym $mod+c gaps horizontal current toggle 350
+bindsym $mod+z gaps horizontal current toggle 350
 
 # kill focused window
 bindsym $mod+Shift+q kill
