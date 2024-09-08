@@ -15,7 +15,6 @@ tiling_drag modifier titlebar
 default_border pixel 2
 
 # Create gaps to accomodate single window on UW Monitor
-# smart_gaps inverse_outer
 gaps horizontal 350
 gaps top 33
 #####################
@@ -90,10 +89,11 @@ bindsym $mod+p exec keepassxc
 
 # Email
 bindsym $mod+m workspace number $ws4 exec proton-mail
+bindsym $mod+Shift+m workspace number $ws4 exec evolution
 
 # Chat
-bindsym $mod+t workspace number $ws5 exec element-desktop
 bindsym $mod+d workspace number $ws5 exec webcord
+bindsym $mod+Shift+d workspace number $ws5 exec element-desktop
 
 # Youtubes
 bindsym $mod+y workspace number $ws6 exec freetube
