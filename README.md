@@ -7,7 +7,7 @@ git clone https://github.com/eldyl/.dotfiles.git
 git submodule update --init --recursive
 ```
 
-## Install Stow
+## Install [Stow](https://www.gnu.org/software/stow/)
 
 Arch
 ```shell
