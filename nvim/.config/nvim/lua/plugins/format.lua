@@ -11,7 +11,7 @@ return {
   config = function()
     local ft = require("guard.filetype")
 
-    ft("typescript,javascript,typescriptreact,javascriptreact,vue,svelte,json,jsonc"):fmt(
+    ft("typescript,javascript,typescriptreact,javascriptreact,vue,svelte,json,jsonc,yaml"):fmt(
       "prettier"
     )
 
