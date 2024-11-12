@@ -30,13 +30,12 @@ if domains then
 end
 
 workspacinator.apply_to_config(config, {
+  -- TODO: Handle directories that may not exist
   directories = {
     "/", -- Equivelaent to "~/" in this instance
     "/.config",
     "/Projects",
     "/Projects/FORKS",
-    "/Services",
-    "/Source",
     "/scripts",
   },
   ssh_domains = config.ssh_domains,
