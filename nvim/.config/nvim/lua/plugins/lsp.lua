@@ -146,7 +146,7 @@ return {
           "bashls",
           "lua_ls",
           "rust_analyzer",
-          "tsserver",
+          "ts_ls",
           "denols",
           "volar",
           "astro",
@@ -169,7 +169,7 @@ return {
                     "import_map.json"
                   )(vim.fn.getcwd())
                 then
-                  if client.name == "tsserver" then
+                  if client.name == "ts_ls" then
                     client.stop()
                     return
                   end
@@ -183,12 +183,12 @@ return {
           end,
 
           -- https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/configure-volar-v2.md
-          tsserver = function()
+          ts_ls = function()
             local vue_typescript_plugin = require("mason-registry")
               .get_package("vue-language-server")
               :get_install_path() .. "/node_modules/@vue/language-server" .. "/node_modules/@vue/typescript-plugin"
 
-            require("lspconfig").tsserver.setup({
+            require("lspconfig").ts_ls.setup({
               on_attach = function(client)
                 if
                   require("lspconfig").util.root_pattern(
@@ -196,7 +196,7 @@ return {
                     "import_map.json"
                   )(vim.fn.getcwd())
                 then
-                  if client.name == "tsserver" then
+                  if client.name == "ts_ls" then
                     client.stop()
                     return
                   end
