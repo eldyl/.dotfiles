@@ -147,6 +147,7 @@ return {
           "lua_ls",
           "rust_analyzer",
           "tsserver",
+          "denols",
           "volar",
           "astro",
           "svelte",
@@ -158,6 +159,29 @@ return {
           function(server_name)
             require("lspconfig")[server_name].setup({})
           end,
+
+          denols = function()
+            require("lspconfig").denols.setup({
+              on_attach = function(client)
+                if
+                  require("lspconfig").util.root_pattern(
+                    "deno.json",
+                    "import_map.json"
+                  )(vim.fn.getcwd())
+                then
+                  if client.name == "tsserver" then
+                    client.stop()
+                    return
+                  end
+                end
+              end,
+              root_dir = require("lspconfig").util.root_pattern(
+                "deno.json",
+                "deno.jsonc"
+              ),
+            })
+          end,
+
           -- https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/configure-volar-v2.md
           tsserver = function()
             local vue_typescript_plugin = require("mason-registry")
@@ -165,6 +189,21 @@ return {
               :get_install_path() .. "/node_modules/@vue/language-server" .. "/node_modules/@vue/typescript-plugin"
 
             require("lspconfig").tsserver.setup({
+              on_attach = function(client)
+                if
+                  require("lspconfig").util.root_pattern(
+                    "deno.json",
+                    "import_map.json"
+                  )(vim.fn.getcwd())
+                then
+                  if client.name == "tsserver" then
+                    client.stop()
+                    return
+                  end
+                end
+              end,
+              root_dir = require("lspconfig").util.root_pattern("package.json"),
+              single_file_support = false,
               init_options = {
                 plugins = {
                   {
@@ -185,6 +224,7 @@ return {
               },
             })
           end,
+
           lua_ls = function()
             require("lspconfig").lua_ls.setup({
               on_init = function(client)
