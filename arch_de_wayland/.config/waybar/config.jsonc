@@ -1,0 +1,88 @@
+{
+  "layer": "top",
+  "modules-left": ["hyprland/workspaces", "mpris"],
+  "modules-center": ["hyprland/window"],
+  "modules-right": ["battery", "cpu", "memory","network", "clock", "custom/notification", "tray"],
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "on-scroll-up": "hyprctl dispatch workspace e+1",
+    "on-scroll-down": "hyprctl dispatch workspace e-1",
+  },
+  "hyprland/window": {
+    "format": "👉 {}",
+    "rewrite": {
+      "(.*) — zsh": "ii> [$1]",
+      "(.*) — org.wezfurlong.wezterm": "i > [$1]",
+      "(.*) — nvim": "> [$1]",
+    },
+    "separate-outputs": true,
+  },
+  "mpris": {
+    "format": " {player_icon} {dynamic}",
+    "format-paused": " {status_icon} <i>{dynamic}</i>",
+    "interval": 1,
+    "player-icons": {
+      "default": "▶",
+      "cmus": "🎵",
+      "mpv": "🎵",
+    },
+    "status-icons": {
+      "paused": "⏸",
+    },
+    // "ignored-players": ["firefox"]
+  },
+  "cpu": {
+    "interval": 1,
+    "format": "   {usage}%",
+    "max-length": 10,
+  },
+  "memory": {
+    "interval": 1,
+    "format": "   {percentage}%",
+    "max-length": 10,
+  },
+  "network": {
+    "interface": "enp8s0",
+    "interval": 1,
+    "format": "{ifname}",
+    "format-wifi": "{essid} ({signalStrength}%) ",
+    "format-ethernet": "🠥 {bandwidthUpBits} / 🠧 {bandwidthDownBits} ",
+    "format-disconnected": "", //An empty format will hide the module.
+    "tooltip-format": "{ifname} via {gwaddr} 󰊗",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+    "tooltip-format-ethernet": "{ifname} ",
+    "tooltip-format-disconnected": "Disconnected",
+    "max-length": 50,
+  },
+  "custom/notification": {
+    "tooltip": false,
+    "format": "{icon}",
+    "format-icons": {
+      "notification": "<span foreground='red'><sup></sup></span>",
+      "none": "",
+      "dnd-notification": "<span foreground='red'><sup></sup></span>",
+      "dnd-none": "",
+      "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "inhibited-none": "",
+      "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "dnd-inhibited-none": ""
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+  },
+  "tray": {
+    "icon-size": 21,
+    "spacing": 10,
+  },
+  "battery": {
+    "format": "{capacity}% {icon}",
+    "format-icons": ["", "", "", "", ""],
+  },
+  "clock": {
+    "format": "{:%a, %d. %b  %H:%M}",
+  },
+}
