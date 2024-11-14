@@ -9,24 +9,14 @@ return {
     opts = {
       width = 100,
       buffers = {
-        scratchPad = {
-          -- set to `false` to
-          -- disable auto-saving
-          enabled = true,
-          -- set to `nil` to default
-          -- to current working directory
-          location = nil,
-        },
-        bo = {
-          filetype = "md",
-        },
+        scratchPad = { enabled = true },
         right = {
           enabled = false,
         },
-        blend = -0.2,
         wo = {
           fillchars = "eob: ",
         },
+        bo = { filetype = "md" },
       },
     },
   },
