@@ -4,7 +4,8 @@ local keys = require("config.keys")
 local status_line = require("config.status_line")
 local startup = require("config.startup")
 local domains = require("config.domains")
-local workspacinator = wezterm.plugin.require("https://github.com/eldyl/workspacinator.wezterm")
+local workspacinator =
+  wezterm.plugin.require("https://github.com/eldyl/workspacinator.wezterm")
 
 local config = wezterm.config_builder() -- Holds our wezterm config
 
@@ -14,7 +15,8 @@ config.underline_position = -2.5
 config.underline_thickness = 3
 config.font_size = 16
 config.scrollback_lines = 11000
-config.window_decorations = "RESIZE" -- Remove the window bar
+-- TODO: Only do below line on macOS
+-- config.window_decorations = "RESIZE" -- Remove the window bar
 
 -- Apply config modules
 colors.apply_to_config(config)
