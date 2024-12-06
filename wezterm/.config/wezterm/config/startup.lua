@@ -46,9 +46,9 @@ function M.apply_to_config(config)
     end
   end)
 
-  wezterm.on("window-config-reloaded", function(window, pane)
-    window:toast_notification("wezterm", "configuration reloaded!", nil, 2000)
-  end)
+  -- wezterm.on("window-config-reloaded", function(window, pane)
+  --   window:toast_notification("wezterm", "configuration reloaded!", nil, 2000)
+  -- end)
 end
 
 return M
