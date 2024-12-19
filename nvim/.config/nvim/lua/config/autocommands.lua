@@ -1,8 +1,7 @@
 -- Add column when in insert mode
-local win_enter_group =
-  vim.api.nvim_create_augroup("EnterForColumn", { clear = true })
 vim.api.nvim_create_autocmd("InsertEnter", {
-  group = win_enter_group,
+  desc = "Creates column at 80 char width when in insert mode",
+  group = vim.api.nvim_create_augroup("insert-mode-column", { clear = true }),
   callback = function()
     vim.schedule(function()
       vim.opt.colorcolumn = "80"
@@ -10,10 +9,12 @@ vim.api.nvim_create_autocmd("InsertEnter", {
   end,
 })
 -- Remove column when leaving insert mode
-local win_leave_group =
-  vim.api.nvim_create_augroup("LeaveNoMoColumn", { clear = true })
 vim.api.nvim_create_autocmd("InsertLeave", {
-  group = win_leave_group,
+  desc = "Removes column at 80 char width when leaving insert mode",
+  group = vim.api.nvim_create_augroup(
+    "leave-insert-no-column",
+    { clear = true }
+  ),
   callback = function()
     vim.schedule(function()
       vim.opt.colorcolumn = "0"
@@ -22,10 +23,12 @@ vim.api.nvim_create_autocmd("InsertLeave", {
 })
 
 -- Clear last search when leaving a buffer | Life changing...
-local clear_search_group =
-  vim.api.nvim_create_augroup("ClearLastSearchOnBufLeave", { clear = true })
 vim.api.nvim_create_autocmd("BufLeave", {
-  group = clear_search_group,
+  desc = "Removes search highlighting when leaving a buffer",
+  group = vim.api.nvim_create_augroup(
+    "clear-last-searched-on-buf-leave",
+    { clear = true }
+  ),
   callback = function()
     vim.schedule(function()
       vim.cmd("noh")
