@@ -1,18 +1,9 @@
 return {
   {
-    -- TODO: Remove lsp-zero
-    -- https://github.com/VonHeikemen/lsp-zero.nvim
-    "VonHeikemen/lsp-zero.nvim",
-    branch = "v4.x",
-    lazy = true,
-    config = false,
-  },
-
-  {
     -- https://github.com/williamboman/mason.nvim
     "williamboman/mason.nvim",
-    lazy = true,
-    config = true,
+    lazy = false,
+    opts = {},
   },
 
   {
@@ -44,7 +35,6 @@ return {
 
     config = function()
       local cmp = require("cmp")
-      local cmp_action = require("lsp-zero").cmp_action()
       local lspkind = require("lspkind")
 
       require("luasnip.loaders.from_vscode").lazy_load()
@@ -68,15 +58,24 @@ return {
           documentation = cmp.config.window.bordered(),
         },
 
+        --TODO: Debug warning
         formatting = {
           format = lspkind.cmp_format({
             mode = "symbol_text", -- show only symbol annotations
-            maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+            maxwidth = {
+              -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+              -- can also be a function to dynamically calculate max width such as
+              -- menu = function() return math.floor(0.45 * vim.o.columns) end,
+              menu = 50, -- leading text (labelDetails)
+              abbr = 50, -- actual suggestion item
+            },
             ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+            show_labelDetails = true, -- show labelDetails in menu. Disabled by default
 
             -- The function below will be called before any actual modifications from lspkind
             -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
             before = function(entry, vim_item)
+              -- ...
               return vim_item
             end,
           }),
@@ -95,9 +94,8 @@ return {
           ["<C-Space>"] = cmp.mapping.complete(),
 
           -- Navigate between snippet placeholder
-          ["<C-f>"] = cmp_action.luasnip_jump_forward(),
-          ["<C-b>"] = cmp_action.luasnip_jump_backward(),
-
+          -- ["<C-f>"] = cmp.mapping.luasnip_jump_forward(),
+          -- ["<C-b>"] = cmp.mapping.luasnip_jump_backward(),
           -- Scroll up and down in the completion documentation
           ["<C-u>"] = cmp.mapping.scroll_docs(-4),
           ["<C-d>"] = cmp.mapping.scroll_docs(4),
@@ -116,30 +114,92 @@ return {
       "hrsh7th/cmp-nvim-lsp",
       -- https://github.com/williamboman/mason-lspconfig.nvim
       "williamboman/mason-lspconfig.nvim",
-    },
-    config = function()
-      local lsp_zero = require("lsp-zero")
-
-      local lsp_attach = function(client, bufnr)
-        lsp_zero.default_keymaps({
-          buffer = bufnr,
-          preserve_mappings = false,
-        })
-      end
-
-      lsp_zero.extend_lspconfig({
-        lsp_attach = lsp_attach,
-        capabilities = require("cmp_nvim_lsp").default_capabilities(),
-      })
-
-      lsp_zero.ui({
-        sign_text = {
-          error = "✘",
-          warn = "",
-          hint = "󰌵",
-          info = "",
+      {
+        "folke/lazydev.nvim",
+        ft = "lua", -- only load on lua files
+        opts = {
+          library = {
+            -- See the configuration section for more details
+            -- Load luvit types when the `vim.uv` word is found
+            { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+          },
         },
-        float_border = "rounded",
+      },
+    },
+    init = function()
+      -- Reserve a space in the gutter
+      -- This will avoid an annoying layout shift in the screen
+      vim.opt.signcolumn = "yes"
+    end,
+    config = function()
+      local lsp_defaults = require("lspconfig").util.default_config
+
+      -- Add cmp_nvim_lsp capabilities settings to lspconfig
+      -- This should be executed before you configure any language server
+      lsp_defaults.capabilities = vim.tbl_deep_extend(
+        "force",
+        lsp_defaults.capabilities,
+        require("cmp_nvim_lsp").default_capabilities()
+      )
+
+      -- LspAttach is where you enable features that only work
+      -- if there is a language server active in the file
+      vim.api.nvim_create_autocmd("LspAttach", {
+        desc = "LSP actions",
+        callback = function(event)
+          local opts = { buffer = event.buf }
+
+          vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", opts)
+          vim.keymap.set(
+            "n",
+            "gd",
+            "<cmd>lua vim.lsp.buf.definition()<cr>",
+            opts
+          )
+          vim.keymap.set(
+            "n",
+            "gD",
+            "<cmd>lua vim.lsp.buf.declaration()<cr>",
+            opts
+          )
+          vim.keymap.set(
+            "n",
+            "gi",
+            "<cmd>lua vim.lsp.buf.implementation()<cr>",
+            opts
+          )
+          vim.keymap.set(
+            "n",
+            "go",
+            "<cmd>lua vim.lsp.buf.type_definition()<cr>",
+            opts
+          )
+          vim.keymap.set(
+            "n",
+            "gr",
+            "<cmd>lua vim.lsp.buf.references()<cr>",
+            opts
+          )
+          vim.keymap.set(
+            "n",
+            "gs",
+            "<cmd>lua vim.lsp.buf.signature_help()<cr>",
+            opts
+          )
+          vim.keymap.set("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
+          vim.keymap.set(
+            { "n", "x" },
+            "<F3>",
+            "<cmd>lua vim.lsp.buf.format({async = true})<cr>",
+            opts
+          )
+          vim.keymap.set(
+            "n",
+            "<F4>",
+            "<cmd>lua vim.lsp.buf.code_action()<cr>",
+            opts
+          )
+        end,
       })
 
       require("mason-lspconfig").setup({
@@ -227,11 +287,7 @@ return {
           end,
 
           lua_ls = function()
-            require("lspconfig").lua_ls.setup({
-              on_init = function(client)
-                lsp_zero.nvim_lua_settings(client, {})
-              end,
-            })
+            require("lspconfig").lua_ls.setup({})
           end,
         },
       })
