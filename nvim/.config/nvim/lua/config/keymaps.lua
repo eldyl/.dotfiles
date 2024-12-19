@@ -15,6 +15,10 @@ keymap("n", "<C-M-Down>", "<C-W><C-->", opts)
 keymap("n", "<C-M-Up>", "<C-W><C-+>", opts)
 keymap("n", "<C-M-Right>", "<C-W><C->>", opts)
 
+-- Move through quickfix list
+keymap("n", "<M-Down>", "<cmd>cnext<CR>", opts)
+keymap("n", "<M-Up>", "<cmd>cprev<CR>", opts)
+
 -- Show line diagnostic
 keymap("n", "<leader>l", vim.diagnostic.open_float, opts)
 -- Jump to next/prev diagnostic
