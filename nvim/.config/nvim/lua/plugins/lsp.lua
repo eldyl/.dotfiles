@@ -1,5 +1,6 @@
 return {
   {
+    -- TODO: Remove lsp-zero
     -- https://github.com/VonHeikemen/lsp-zero.nvim
     "VonHeikemen/lsp-zero.nvim",
     branch = "v4.x",
