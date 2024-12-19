@@ -8,6 +8,7 @@ vim.api.nvim_create_autocmd("InsertEnter", {
     end)
   end,
 })
+
 -- Remove column when leaving insert mode
 vim.api.nvim_create_autocmd("InsertLeave", {
   desc = "Removes column at 80 char width when leaving insert mode",
@@ -22,7 +23,16 @@ vim.api.nvim_create_autocmd("InsertLeave", {
   end,
 })
 
--- Clear last search when leaving a buffer | Life changing...
+-- Highlight when yanking
+vim.api.nvim_create_autocmd("TextYankPost", {
+  desc = "Highlight when yanking",
+  group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+})
+
+-- Clear last search when leaving a buffer
 vim.api.nvim_create_autocmd("BufLeave", {
   desc = "Removes search highlighting when leaving a buffer",
   group = vim.api.nvim_create_augroup(
