@@ -94,6 +94,8 @@ compinit
 
 # Include cargo for rust
 export PATH="$HOME/.cargo/bin:$PATH"
+# Include backtrace
+export RUST_BACKTRACE=1
 
 # Include pip for python
 export PATH="$HOME/.local/bin:$PATH"
@@ -134,6 +136,7 @@ alias ip='ip --color=auto'
 alias pn='pnpm'
 alias buns='bun start'
 alias thebook='rustup docs --book'
+alias cwa='cargo watch -x check -x test -x run'
 
 # Access sudo crontab
 [[ "$OS" == "$L" ]] &&  alias sudocrontab="su -c $(printf "%q " "crontab -e")"
