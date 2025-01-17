@@ -212,6 +212,7 @@ return {
           "volar",
           "astro",
           "svelte",
+          "pyright",
           "eslint@4.8.0",
           "tailwindcss",
           "yamlls",

@@ -33,6 +33,10 @@ return {
 
     ft("rust"):fmt("rustfmt")
 
+    ft(
+      "python"
+    ):fmt("black")
+
     -- ft("java"):fmt("google-java-format")
 
     vim.g.guard_config = {
