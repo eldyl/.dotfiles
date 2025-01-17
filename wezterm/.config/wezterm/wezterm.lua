@@ -39,6 +39,7 @@ workspacinator.apply_to_config(config, {
     "/Projects",
     "/Projects/FORKS",
     "/scripts",
+    "/School",
   },
   ssh_domains = config.ssh_domains,
 })
