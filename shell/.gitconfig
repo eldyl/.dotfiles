@@ -9,4 +9,4 @@
 [commit]
 	gpgsign = true
 [core]
-	excludesfile = /home/eldyl/.gitignore
+    excludesfile = ~/.gitignore
