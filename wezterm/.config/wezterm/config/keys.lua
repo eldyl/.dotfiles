@@ -309,7 +309,7 @@ function M.apply_to_config(config)
     { key = "r", mods = "CTRL|ALT", action = act.RotatePanes("Clockwise") },
 
     --
-    -- Split pane to use as build terminal
+    -- Split pane to use as build terminal - Bottom
     --
     {
       key = "b",
@@ -317,6 +317,18 @@ function M.apply_to_config(config)
       action = act.SplitPane({
         direction = "Down",
         size = { Percent = 10 },
+      }),
+    },
+
+    --
+    -- Split pane to use as build terminal - Right
+    --
+    {
+      key = "r",
+      mods = "CTRL|ALT",
+      action = act.SplitPane({
+        direction = "Right",
+        size = { Percent = 40 },
       }),
     },
 
