@@ -114,6 +114,7 @@ return {
       "hrsh7th/cmp-nvim-lsp",
       -- https://github.com/williamboman/mason-lspconfig.nvim
       "williamboman/mason-lspconfig.nvim",
+      "cordx56/rustowl",
       {
         "folke/lazydev.nvim",
         ft = "lua", -- only load on lua files
@@ -142,6 +143,29 @@ return {
         require("cmp_nvim_lsp").default_capabilities()
       )
 
+      require("lspconfig").rustowl.setup({
+        trigger = {
+          hover = false,
+        },
+      })
+
+      require("lspconfig").rust_analyzer.setup({
+        -- Other Configs ...
+        settings = {
+          ["rust-analyzer"] = {
+            -- Other Settings ...
+            procMacro = {
+              ignored = {
+                leptos_macro = {
+                  -- optional: --
+                  -- "component",
+                  "server",
+                },
+              },
+            },
+          },
+        },
+      })
       -- LspAttach is where you enable features that only work
       -- if there is a language server active in the file
       vim.api.nvim_create_autocmd("LspAttach", {
@@ -199,6 +223,13 @@ return {
             "<cmd>lua vim.lsp.buf.code_action()<cr>",
             opts
           )
+          -- Rust owl for viewing rust lifetimes
+          vim.keymap.set(
+            "n",
+            "<leader>r",
+            require("rustowl").rustowl_cursor,
+            { noremap = true, silent = true }
+          )
         end,
       })
 
@@ -217,6 +248,9 @@ return {
           "tailwindcss",
           "yamlls",
         },
+
+        automatic_installation = false,
+
         handlers = {
           function(server_name)
             require("lspconfig")[server_name].setup({})
@@ -283,6 +317,65 @@ return {
                 "typescriptreact",
                 "typescript.tsx",
                 "vue",
+              },
+            })
+          end,
+
+          tailwindcss = function()
+            require("lspconfig").tailwindcss.setup({
+
+              filetypes = {
+                "aspnetcorerazor",
+                "astro",
+                "astro-markdown",
+                "blade",
+                "clojure",
+                "django-html",
+                "htmldjango",
+                "edge",
+                "eelixir",
+                "elixir",
+                "ejs",
+                "erb",
+                "eruby",
+                "gohtml",
+                "gohtmltmpl",
+                "haml",
+                "handlebars",
+                "hbs",
+                "html",
+                "htmlangular",
+                "html-eex",
+                "heex",
+                "jade",
+                "leaf",
+                "liquid",
+                "markdown",
+                "mdx",
+                "mustache",
+                "njk",
+                "nunjucks",
+                "php",
+                "razor",
+                "slim",
+                "twig",
+                "css",
+                "less",
+                "postcss",
+                "sass",
+                "scss",
+                "stylus",
+                "sugarss",
+                "javascript",
+                "javascriptreact",
+                "reason",
+                "rescript",
+                "rust",
+                "typescript",
+                "typescriptreact",
+                "vue",
+                "svelte",
+                "templ",
               },
             })
           end,
