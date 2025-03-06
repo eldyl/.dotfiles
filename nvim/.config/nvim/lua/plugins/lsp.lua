@@ -114,7 +114,6 @@ return {
       "hrsh7th/cmp-nvim-lsp",
       -- https://github.com/williamboman/mason-lspconfig.nvim
       "williamboman/mason-lspconfig.nvim",
-      "cordx56/rustowl",
       {
         "folke/lazydev.nvim",
         ft = "lua", -- only load on lua files
@@ -142,12 +141,6 @@ return {
         lsp_defaults.capabilities,
         require("cmp_nvim_lsp").default_capabilities()
       )
-
-      require("lspconfig").rustowl.setup({
-        trigger = {
-          hover = false,
-        },
-      })
 
       require("lspconfig").rust_analyzer.setup({
         -- Other Configs ...
@@ -222,13 +215,6 @@ return {
             "<F4>",
             "<cmd>lua vim.lsp.buf.code_action()<cr>",
             opts
-          )
-          -- Rust owl for viewing rust lifetimes
-          vim.keymap.set(
-            "n",
-            "<leader>r",
-            require("rustowl").rustowl_cursor,
-            { noremap = true, silent = true }
           )
         end,
       })
