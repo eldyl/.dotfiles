@@ -208,6 +208,7 @@ return {
           "bashls",
           "lua_ls",
           "rust_analyzer",
+          "emmet_language_server",
           "ts_ls",
           "denols",
           "volar",
