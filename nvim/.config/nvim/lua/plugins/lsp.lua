@@ -214,7 +214,7 @@ return {
           "astro",
           "svelte",
           "pyright",
-          "eslint@4.8.0",
+          "eslint",
           "tailwindcss",
           "yamlls",
         },
