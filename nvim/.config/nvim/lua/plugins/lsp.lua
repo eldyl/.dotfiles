@@ -232,6 +232,9 @@ return {
               settings = {
                 ["rust-analyzer"] = {
                   -- Other Settings ...
+                  cargo = {
+                    features = "all",
+                  },
                   procMacro = {
                     ignored = {
                       leptos_macro = {
