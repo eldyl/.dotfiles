@@ -60,7 +60,6 @@ return {
           documentation = cmp.config.window.bordered(),
         },
 
-        --TODO: Debug warning
         formatting = {
           format = lspkind.cmp_format({
             mode = "symbol_text", -- show only symbol annotations
