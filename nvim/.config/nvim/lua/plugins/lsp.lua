@@ -21,6 +21,8 @@ return {
       "saadparwaiz1/cmp_luasnip",
       -- https://github.com/onsails/lspkind.nvim
       "onsails/lspkind-nvim",
+      -- https://github.com/luckasRanarison/tailwind-tools.nvim
+      "tailwind-tools",
       {
         -- https://github.com/L3MON4D3/LuaSnip
         "L3MON4D3/LuaSnip",
@@ -142,23 +144,6 @@ return {
         require("cmp_nvim_lsp").default_capabilities()
       )
 
-      require("lspconfig").rust_analyzer.setup({
-        -- Other Configs ...
-        settings = {
-          ["rust-analyzer"] = {
-            -- Other Settings ...
-            procMacro = {
-              ignored = {
-                leptos_macro = {
-                  -- optional: --
-                  -- "component",
-                  "server",
-                },
-              },
-            },
-          },
-        },
-      })
       -- LspAttach is where you enable features that only work
       -- if there is a language server active in the file
       vim.api.nvim_create_autocmd("LspAttach", {
@@ -327,65 +312,6 @@ return {
             })
           end,
 
-          tailwindcss = function()
-            require("lspconfig").tailwindcss.setup({
-
-              filetypes = {
-                "aspnetcorerazor",
-                "astro",
-                "astro-markdown",
-                "blade",
-                "clojure",
-                "django-html",
-                "htmldjango",
-                "edge",
-                "eelixir",
-                "elixir",
-                "ejs",
-                "erb",
-                "eruby",
-                "gohtml",
-                "gohtmltmpl",
-                "haml",
-                "handlebars",
-                "hbs",
-                "html",
-                "htmlangular",
-                "html-eex",
-                "heex",
-                "jade",
-                "leaf",
-                "liquid",
-                "markdown",
-                "mdx",
-                "mustache",
-                "njk",
-                "nunjucks",
-                "php",
-                "razor",
-                "slim",
-                "twig",
-                "css",
-                "less",
-                "postcss",
-                "sass",
-                "scss",
-                "stylus",
-                "sugarss",
-                "javascript",
-                "javascriptreact",
-                "reason",
-                "rescript",
-                "rust",
-                "typescript",
-                "typescriptreact",
-                "vue",
-                "svelte",
-                "templ",
-              },
-            })
-          end,
-
           lua_ls = function()
             require("lspconfig").lua_ls.setup({})
           end,
@@ -414,7 +340,6 @@ return {
       },
     }, -- your configuration
   },
-
   -- {
   --   -- Java...
   --   "mfussenegger/nvim-jdtls",
