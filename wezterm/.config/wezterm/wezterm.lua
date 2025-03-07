@@ -15,8 +15,10 @@ config.underline_position = -2.5
 config.underline_thickness = 3
 config.font_size = 16
 config.scrollback_lines = 11000
--- TODO: Only do below line on macOS
--- config.window_decorations = "RESIZE" -- Remove the window bar
+
+if wezterm.target_triple == "aarch64-apple-darwin" then
+  config.window_decorations = "RESIZE" -- Remove the window bar
+end
 
 -- Apply config modules
 colors.apply_to_config(config)
