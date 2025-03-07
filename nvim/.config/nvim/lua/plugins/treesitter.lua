@@ -54,6 +54,7 @@ return {
           "bash",
           "rust",
         },
+
         ignore_install = { "org" },
         -- Install parsers synchronously (only applied to `ensure_installed`)
         sync_install = false,
@@ -68,6 +69,26 @@ return {
           enable = true, -- mandatory, false will disable the whole extension
         },
       })
+    end,
+  },
+
+  -- Parse html in rust files properly
+  -- https://github.com/rayliwell/tree-sitter-rstml
+  {
+    "rayliwell/tree-sitter-rstml",
+    dependencies = { "nvim-treesitter" },
+    build = ":TSUpdate",
+    config = function()
+      require("tree-sitter-rstml").setup()
+    end,
+  },
+
+  -- Auto create end tag for html elements
+  -- https://github.com/windwp/nvim-ts-autotag
+  {
+    "windwp/nvim-ts-autotag",
+    config = function()
+      require("nvim-ts-autotag").setup()
     end,
   },
 }
