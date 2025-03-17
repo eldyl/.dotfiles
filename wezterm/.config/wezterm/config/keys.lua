@@ -70,6 +70,50 @@ function M.apply_to_config(config)
     },
 
     --
+    -- Start new project and open in workspace
+    --
+    {
+      key = "p",
+      mods = "CTRL|ALT",
+      action = act.PromptInputLine({
+        description = wezterm.format({
+          { Attribute = { Intensity = "Bold" } },
+          { Foreground = { AnsiColor = "Fuchsia" } },
+          { Text = "New project name:" },
+        }),
+        action = wezterm.action_callback(function(window, pane, line)
+          -- line will be `nil` if they hit escape without entering anything
+          -- An empty string if they just hit enter
+          -- Or the actual line of text they wrote
+          --
+          local home = wezterm.home_dir -- Home directory according to wezterm
+          local project_path = home .. "/Projects/" .. line
+
+          local success, stdout, stderr =
+            wezterm.run_child_process({ "mkdir", "-p", project_path })
+
+          if success then
+            if line then
+              window:perform_action(
+                act.SwitchToWorkspace({
+                  name = line,
+                  spawn = {
+                    label = "Workspace: " .. line,
+                    cwd = project_path,
+                    domain = "DefaultDomain",
+                  },
+                }),
+                pane
+              )
+            end
+          elseif stderr then
+            wezterm.log_info(stderr)
+          end
+        end),
+      }),
+    },
+
+    --
     -- Launch Home workspace
     --
     {
