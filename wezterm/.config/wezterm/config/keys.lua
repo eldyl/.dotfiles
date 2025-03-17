@@ -42,29 +42,6 @@ function M.apply_to_config(config)
     ---------------------
 
     --
-    -- Promote window to workspace
-    --
-    {
-      key = "P",
-      mods = "LEADER",
-      action = act.EmitEvent("trigger-promote-window-to-workspace"),
-
-      -- wezterm.action_callback(function(window, pane, line)
-      --   wezterm.log_info("window", window)
-      --   act.PromptInputLine({
-      --     description = wezterm.format({
-      --       { Attribute = { Intensity = "Bold" } },
-      --       { Foreground = { AnsiColor = "Fuchsia" } },
-      --       { Text = "New workspace name:" },
-      --     }),
-      --     action = wezterm.action_callback(function(window, pane, line)
-      --       window:set_workspace("farm")
-      --     end),
-      --   })
-      -- end),
-    },
-
-    --
     -- Create new named workspace
     --
     {
