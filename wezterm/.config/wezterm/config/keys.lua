@@ -181,17 +181,6 @@ function M.apply_to_config(config)
     ------  Tabs   ------
     ---------------------
 
-    -- --
-    -- -- List active tabs
-    -- --
-    -- {
-    --   key = "t",
-    --   mods = "CTRL|ALT",
-    --   action = act.ShowLauncherArgs({
-    --     flags = "FUZZY|TABS",
-    --   }),
-    -- },
-
     --
     -- Change tab title --
     --
