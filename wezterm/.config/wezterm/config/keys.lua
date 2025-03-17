@@ -310,6 +310,18 @@ function M.apply_to_config(config)
     },
 
     --
+    -- Split pane to use as build terminal - Left
+    --
+    {
+      key = "l",
+      mods = "CTRL|ALT",
+      action = act.SplitPane({
+        direction = "Left",
+        size = { Percent = 40 },
+      }),
+    },
+
+    --
     -- Split pane to use as build terminal - Right
     --
     {
