@@ -13,7 +13,7 @@ local config = wezterm.config_builder() -- Holds our wezterm config
 config.font = wezterm.font("GeistMono Nerd Font")
 config.underline_position = -2.5
 config.underline_thickness = 3
-config.font_size = 16
+config.font_size = 17
 config.scrollback_lines = 11000
 
 if wezterm.target_triple == "aarch64-apple-darwin" then
