@@ -54,9 +54,6 @@ function M.apply_to_config(config)
           { Text = "New workspace name:" },
         }),
         action = wezterm.action_callback(function(window, pane, line)
-          -- line will be `nil` if they hit escape without entering anything
-          -- An empty string if they just hit enter
-          -- Or the actual line of text they wrote
           if line then
             window:perform_action(
               act.SwitchToWorkspace({
@@ -82,10 +79,6 @@ function M.apply_to_config(config)
           { Text = "New project name:" },
         }),
         action = wezterm.action_callback(function(window, pane, line)
-          -- line will be `nil` if they hit escape without entering anything
-          -- An empty string if they just hit enter
-          -- Or the actual line of text they wrote
-          --
           local home = wezterm.home_dir -- Home directory according to wezterm
           local project_path = home .. "/Projects/" .. line
 
@@ -216,9 +209,6 @@ function M.apply_to_config(config)
           { Text = "Rename tab to:" },
         }),
         action = wezterm.action_callback(function(window, pane, line)
-          -- line will be `nil` if they hit escape without entering anything
-          -- An empty string if they just hit enter
-          -- Or the actual line of text they wrote
           if line then
             window:active_tab():set_title(line)
           end
@@ -300,7 +290,7 @@ function M.apply_to_config(config)
     },
 
     --
-    -- Split panes
+    -- Split pane vertical
     --
     {
       key = "v",
@@ -308,6 +298,9 @@ function M.apply_to_config(config)
       action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }),
     },
 
+    --
+    -- Split pane horizontal
+    --
     {
       key = "s",
       mods = "LEADER",
