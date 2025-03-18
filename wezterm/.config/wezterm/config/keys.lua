@@ -122,6 +122,7 @@ function M.apply_to_config(config)
       action = act.SwitchToWorkspace({
         name = HOME_ICON,
         spawn = {
+          cwd = wezterm.home_dir, -- Get our home directory
           domain = "DefaultDomain",
         },
       }),
