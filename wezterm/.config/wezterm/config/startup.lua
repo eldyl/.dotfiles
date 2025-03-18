@@ -6,17 +6,24 @@ local M = {}
 function M.apply_to_config(config)
   local HOME_ICON = utf8.char(0x1f3e0)
 
-  local default_workspace_title = HOME_ICON
+  local hostname = wezterm.hostname()
 
-  config.default_workspace = default_workspace_title
+  local dot = hostname:find("[.]")
+  if dot then
+    hostname = hostname:sub(1, dot - 1)
+  end
+
+  local default_workspace_name = HOME_ICON .. hostname
+
+  config.default_workspace = default_workspace_name
 
   config.unix_domains = {
     {
-      name = "unix",
+      name = hostname,
     },
   }
 
-  config.default_gui_startup_args = { "connect", "unix" }
+  config.default_gui_startup_args = { "connect", hostname }
 
   -- GUI startup
   wezterm.on("gui-startup", function(cmd)
@@ -27,12 +34,12 @@ function M.apply_to_config(config)
 
     local home = wezterm.home_dir -- Get our home directory
     local tab, build_pane, window = mux.spawn_window({
-      workspace = default_workspace_title,
+      workspace = default_workspace_name,
       cwd = home,
       args = args,
     })
 
-    mux.set_active_workspace(default_workspace_title)
+    mux.set_active_workspace(default_workspace_name)
     window:gui_window():maximize()
   end)
 
@@ -45,10 +52,6 @@ function M.apply_to_config(config)
       end
     end
   end)
-
-  -- wezterm.on("window-config-reloaded", function(window, pane)
-  --   window:toast_notification("wezterm", "configuration reloaded!", nil, 2000)
-  -- end)
 end
 
 return M
