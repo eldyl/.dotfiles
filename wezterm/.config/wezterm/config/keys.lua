@@ -112,13 +112,41 @@ function M.apply_to_config(config)
     {
       key = "h",
       mods = "CTRL|ALT",
-      action = act.SwitchToWorkspace({
-        name = HOME_ICON,
-        spawn = {
-          cwd = wezterm.home_dir, -- Get our home directory
-          domain = "DefaultDomain",
-        },
-      }),
+      action = wezterm.action_callback(function(window, pane, line)
+        local hostname = wezterm.hostname()
+
+        local dot = hostname:find("[.]")
+        if dot then
+          hostname = hostname:sub(1, dot - 1)
+        end
+
+        local default_workspace = HOME_ICON .. hostname
+
+        window:perform_action(
+          act.SwitchToWorkspace({
+            name = default_workspace,
+            spawn = {
+              cwd = wezterm.home_dir, -- Get our home directory
+              domain = "DefaultDomain",
+            },
+          }),
+          pane
+        )
+
+        -- if line then
+        --   window:perform_action(
+        --     act.SwitchToWorkspace({
+        --       name = HOME_ICON,
+        --       spawn = {
+        --         label = "Workspace: " .. HOME_ICON,
+        --         cwd = wezterm.home_dir,
+        --         domain = "DefaultDomain",
+        --       },
+        --     }),
+        --     pane
+        --   )
+        -- end
+      end),
     },
 
     --
