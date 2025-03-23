@@ -16,6 +16,13 @@ set.inccommand = "split"
 set.signcolumn = "yes"
 set.cursorline = true
 
+-- Set column at 80 chars
+set.colorcolumn = "80"
+-- In rust, set column at 100 chars
+vim.api.nvim_create_autocmd(
+  "Filetype",
+  { pattern = "rust", command = "set colorcolumn=100" }
+)
 set.number = true
 set.relativenumber = true
 set.smartindent = true
