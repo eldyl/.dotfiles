@@ -362,7 +362,16 @@ return {
       })
     end,
   },
-
+  {
+    "ray-x/lsp_signature.nvim",
+    event = "VeryLazy",
+    opts = {
+      doc_lines = 0,
+      handler_opts = {
+        border = "none",
+      },
+    },
+  },
   {
     "luckasRanarison/tailwind-tools.nvim",
     name = "tailwind-tools",
