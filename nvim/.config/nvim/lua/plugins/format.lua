@@ -29,13 +29,13 @@ return {
       stdin = true,
     })
 
+    ft("toml"):fmt("taplo")
+
     ft("lua"):fmt("stylua")
 
     ft("rust"):fmt("rustfmt")
 
-    ft(
-      "python"
-    ):fmt("black")
+    ft("python"):fmt("black")
 
     -- ft("java"):fmt("google-java-format")
 
