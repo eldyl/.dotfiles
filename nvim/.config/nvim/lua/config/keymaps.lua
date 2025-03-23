@@ -3,7 +3,8 @@ local opts = { noremap = true, silent = true }
 
 -- Paste better - Use register to keep pasted available
 keymap("v", "p", '"_dP', opts)
-
+-- Easy save
+keymap('n', '<leader>w', '<cmd>w<cr>')
 -- Move around split windows easier
 keymap("n", "<C-Left>", "<C-W><C-h>", opts)
 keymap("n", "<C-Down>", "<C-W><C-j>", opts)
