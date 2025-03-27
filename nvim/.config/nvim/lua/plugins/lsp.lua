@@ -207,7 +207,7 @@ return {
         ensure_installed = {
           "bashls",
           "lua_ls",
-          "rust_analyzer",
+          -- "rust_analyzer",
           "emmet_language_server",
           "ts_ls",
           "denols",
@@ -228,27 +228,30 @@ return {
           end,
 
           rust_analyzer = function()
-            require("lspconfig").rust_analyzer.setup({
-              -- Other Configs ...
-              settings = {
-                ["rust-analyzer"] = {
-                  -- Other Settings ...
-                  cargo = {
-                    features = "all",
-                  },
-                  procMacro = {
-                    ignored = {
-                      leptos_macro = {
-                        -- optional: --
-                        -- "component",
-                        "server",
-                      },
-                    },
-                  },
-                },
-              },
-            })
+            return true
           end,
+          -- rust_analyzer = function()
+          --   require("lspconfig").rust_analyzer.setup({
+          --     -- Other Configs ...
+          --     settings = {
+          --       ["rust-analyzer"] = {
+          --         -- Other Settings ...
+          --         cargo = {
+          --           features = "all",
+          --         },
+          --         procMacro = {
+          --           ignored = {
+          --             leptos_macro = {
+          --               -- optional: --
+          --               -- "component",
+          --               "server",
+          --             },
+          --           },
+          --         },
+          --       },
+          --     },
+          --   })
+          -- end,
 
           emmet_language_server = function()
             require("lspconfig").emmet_language_server.setup({
@@ -361,6 +364,11 @@ return {
         },
       })
     end,
+  },
+  {
+    "mrcjkb/rustaceanvim",
+    version = "^5", -- Recommended
+    lazy = false, -- This plugin is already lazy
   },
   {
     "ray-x/lsp_signature.nvim",
