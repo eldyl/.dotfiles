@@ -45,3 +45,54 @@ vim.api.nvim_create_autocmd("BufLeave", {
     end)
   end,
 })
+
+-- Escape code for macros
+local esc = vim.api.nvim_replace_termcodes("<Esc>", true, true, true)
+
+-- Print variable macro for js/ts/jsx/tsx
+vim.api.nvim_create_autocmd("FileType", {
+  desc = "Create print/log statement for highlighted selection",
+  group = vim.api.nvim_create_augroup(
+    "create-log-statement-for-highlighted",
+    { clear = true }
+  ),
+  pattern = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
+  callback = function()
+    vim.fn.setreg(
+      "p",
+      'yoconsole.log("' .. esc .. 'pa: ", ' .. esc .. "pa);" .. esc
+    )
+  end,
+})
+
+-- Print variable macro for rust
+vim.api.nvim_create_autocmd("FileType", {
+  desc = "Create print/log statement for highlighted selection",
+  group = vim.api.nvim_create_augroup(
+    "create-print-statement-for-highlighted-rust",
+    { clear = true }
+  ),
+  pattern = { "rust" },
+  callback = function()
+    vim.fn.setreg(
+      "p",
+      'yoprintln!("' .. esc .. 'pA: {:?}", ' .. esc .. "pA);" .. esc
+    )
+  end,
+})
+
+-- Print variable macro for rust
+vim.api.nvim_create_autocmd("FileType", {
+  desc = "Create print/log statement for highlighted selection",
+  group = vim.api.nvim_create_augroup(
+    "create-print-statement-for-highlighted-rust",
+    { clear = true }
+  ),
+  pattern = { "python" },
+  callback = function()
+    vim.fn.setreg(
+      "p",
+      'yoprint("' .. esc .. 'pA: ", ' .. esc .. "pA)" .. esc
+    )
+  end,
+})
