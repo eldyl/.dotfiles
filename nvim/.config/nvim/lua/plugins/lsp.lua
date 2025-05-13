@@ -402,9 +402,9 @@ return {
     }, -- your configuration
   },
 
-  -- {
-  --   -- Java...
-  --   "mfussenegger/nvim-jdtls",
-  --   ft = { "java" },
-  -- },
+  {
+    -- Java...
+    "mfussenegger/nvim-jdtls",
+    ft = { "java" },
+  },
 }
