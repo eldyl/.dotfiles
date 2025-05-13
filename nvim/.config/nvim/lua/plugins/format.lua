@@ -35,6 +35,12 @@ return {
 
     ft("rust"):fmt("rustfmt")
 
+    ft("c"):fmt({
+      cmd = "clang-format",
+      args = { "--style={IndentWidth: 4}" },
+      stdin = true,
+    })
+
     ft("python"):fmt("black")
 
     -- ft("java"):fmt("google-java-format")

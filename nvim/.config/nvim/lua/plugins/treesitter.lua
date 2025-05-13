@@ -53,6 +53,7 @@ return {
           "lua",
           "bash",
           "rust",
+          "c",
         },
 
         ignore_install = { "org" },
