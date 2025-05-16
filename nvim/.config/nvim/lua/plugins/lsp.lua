@@ -1,7 +1,7 @@
 return {
   {
     -- https://github.com/williamboman/mason.nvim
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     lazy = false,
     opts = {},
   },
@@ -114,13 +114,12 @@ return {
       -- https://github.com/hrsh7th/cmp-nvim-lsp
       "hrsh7th/cmp-nvim-lsp",
       -- https://github.com/williamboman/mason-lspconfig.nvim
-      "williamboman/mason-lspconfig.nvim",
+      "mason-org/mason-lspconfig.nvim",
       {
         "folke/lazydev.nvim",
         ft = "lua", -- only load on lua files
         opts = {
           library = {
-            -- See the configuration section for more details
             -- Load luvit types when the `vim.uv` word is found
             { path = "${3rd}/luv/library", words = { "vim%.uv" } },
           },
@@ -227,9 +226,9 @@ return {
             require("lspconfig")[server_name].setup({})
           end,
 
-          rust_analyzer = function()
-            return true
-          end,
+          -- rust_analyzer = function()
+          --   return true
+          -- end,
           -- rust_analyzer = function()
           --   require("lspconfig").rust_analyzer.setup({
           --     -- Other Configs ...
@@ -266,7 +265,6 @@ return {
                 "scss",
                 "pug",
                 "typescriptreact",
-                "rust",
               },
               -- Read more about this options in the [vscode docs](https://code.visualstudio.com/docs/editor/emmet#_emmet-configuration).
               -- **Note:** only the options listed in the table are supported.
@@ -367,17 +365,19 @@ return {
   },
   {
     "mrcjkb/rustaceanvim",
-    version = "^5", -- Recommended
+    version = "^6", -- Recommended
     lazy = false, -- This plugin is already lazy
   },
   {
     "ray-x/lsp_signature.nvim",
-    event = "VeryLazy",
+    event = "InsertEnter",
     opts = {
       doc_lines = 0,
       handler_opts = {
         border = "none",
       },
+      floating_window = true,
+      hint_enable = true,
     },
   },
   {
