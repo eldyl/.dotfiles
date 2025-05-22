@@ -43,12 +43,7 @@ return {
 
     ft("python"):fmt("black")
 
-    ft("java"):fmt({
-      cmd = "google-java-format",
-      args = { "-a" },
-      fname = true,
-      stdin = true,
-    })
+    ft("java"):fmt("google-java-format")
 
     vim.g.guard_config = {
       -- format on write to buffer
