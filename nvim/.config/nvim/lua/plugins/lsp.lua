@@ -210,7 +210,6 @@ return {
           "emmet_language_server",
           "ts_ls",
           "denols",
-          "volar",
           "astro",
           "svelte",
           "pyright",
