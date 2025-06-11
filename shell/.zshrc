@@ -168,3 +168,12 @@ if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
 	add-zle-hook-widget -Uz zle-line-init zle_application_mode_start
 	add-zle-hook-widget -Uz zle-line-finish zle_application_mode_stop
 fi
+
+#------------------------
+#  Choose SSH_AUTH_SOCK 
+#------------------------
+
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] || [ -n "$SSH_CONNECTION" ] || pgrep -f "ssh.*$(whoami)" >/dev/null 2>&1; then
+    SOCK=$(find /tmp -name 'agent.*' -path '*/ssh-*' 2>/dev/null | head -1)
+    [ -S "$SOCK" ] && export SSH_AUTH_SOCK="$SOCK"
+fi
