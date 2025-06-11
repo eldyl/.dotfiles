@@ -1,8 +1,20 @@
 {
   "layer": "top",
+  "position": "top",
+  "spacing": 0,
+  "reload_style_on_change": true,
   "modules-left": ["hyprland/workspaces", "mpris"],
   "modules-center": ["hyprland/window"],
-  "modules-right": ["battery", "cpu", "memory","network", "clock", "custom/notification", "tray"],
+  "modules-right": [
+    "cpu",
+    "custom/cpu-temp",
+    "memory",
+    "network",
+    "clock",
+    "battery",
+    "custom/notification",
+    "tray",
+  ],
   "hyprland/workspaces": {
     "format": "{icon}",
     "on-scroll-up": "hyprctl dispatch workspace e+1",
@@ -36,10 +48,16 @@
     "format": "   {usage}%",
     "max-length": 10,
   },
+  "custom/cpu-temp": {
+    "exec": "~/.config/waybar/cpu_temp.sh",
+    "interval": 2,
+    "format": " {}°C",
+    "tooltip": false,
+  },
   "memory": {
     "interval": 1,
-    "format": "   {percentage}%",
-    "max-length": 10,
+    "format": "  {used:0.1f}G / {total:0.1f}G",
+    "max-length": 20,
   },
   "network": {
     "interface": "enp8s0",
@@ -65,14 +83,14 @@
       "inhibited-notification": "<span foreground='red'><sup></sup></span>",
       "inhibited-none": "",
       "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
-      "dnd-inhibited-none": ""
+      "dnd-inhibited-none": "",
     },
     "return-type": "json",
     "exec-if": "which swaync-client",
     "exec": "swaync-client -swb",
     "on-click": "swaync-client -t -sw",
     "on-click-right": "swaync-client -d -sw",
-    "escape": true
+    "escape": true,
   },
   "tray": {
     "icon-size": 21,
