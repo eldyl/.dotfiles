@@ -14,6 +14,7 @@ config.font = wezterm.font("JetBrainsMono Nerd Font")
 config.underline_position = -2.5
 config.underline_thickness = 3
 config.font_size = 17
+config.window_background_opacity = 0.97
 config.scrollback_lines = 11000
 
 if wezterm.target_triple == "aarch64-apple-darwin" then
