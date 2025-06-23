@@ -36,7 +36,7 @@ window#waybar {
 #window,
 #workspaces,
 #custom-notification{
-  padding-right: 10px;
+  padding-right: 15px;
 }
 
 #cpu {
@@ -55,7 +55,7 @@ window#waybar {
 #network {
   color: #a9b1d6;
   padding-right: 10px;
-  min-width: 220px;
+  min-width: 230px;
 }
 #clock{
   color: #5fd1fa;

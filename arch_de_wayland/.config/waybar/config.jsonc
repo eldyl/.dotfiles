@@ -45,7 +45,7 @@
   },
   "cpu": {
     "interval": 1,
-    "format": "   {usage}%",
+    "format": "  {usage}%",
     "max-length": 10,
   },
   "custom/cpu-temp": {
