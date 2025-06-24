@@ -15,6 +15,12 @@ return {
       "typescript,javascript,typescriptreact,javascriptreact,vue,svelte,json,jsonc,yaml"
     ):fmt("prettier")
 
+    ft("markdown,mdx"):fmt({
+      cmd = "prettier",
+      args = { "--write", "--prose-wrap", "always" },
+      fname = true,
+    })
+
     ft("astro"):fmt({
       cmd = "pnpm",
       args = {
