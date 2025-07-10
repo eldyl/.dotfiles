@@ -12,7 +12,7 @@ return {
     local ft = require("guard.filetype")
 
     ft(
-      "typescript,javascript,typescriptreact,javascriptreact,vue,svelte,json,jsonc,yaml"
+      "typescript,javascript,typescriptreact,javascriptreact,vue,svelte,css,json,jsonc,yaml"
     ):fmt("prettier")
 
     ft("markdown,mdx"):fmt({
