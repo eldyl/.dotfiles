@@ -136,6 +136,12 @@ alias ip='ip --color=auto'
 alias pn='pnpm'
 alias buns='bun start'
 alias thebook='rustup docs --book'
+
+# Cargo
+alias cc='cargo check'
+alias cr='cargo run'
+alias cb='cargo build'
+alias cx='cargo xtask'
 alias cwa='cargo watch -x check -x test -x run'
 
 # Access sudo crontab
