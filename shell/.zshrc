@@ -147,6 +147,9 @@ alias cwa='cargo watch -x check -x test -x run'
 # Access sudo crontab
 [[ "$OS" == "$L" ]] &&  alias sudocrontab="su -c $(printf "%q " "crontab -e")"
 
+# Use sudo-rs
+[[ "$OS" == "$L" ]] &&  alias sudo='sudo-rs'
+
 # Git
 alias gs='git status'
 alias ga='git add'
