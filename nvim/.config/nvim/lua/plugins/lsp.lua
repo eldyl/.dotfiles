@@ -1,9 +1,68 @@
 return {
   {
-    -- https://github.com/williamboman/mason.nvim
-    "mason-org/mason.nvim",
-    lazy = false,
-    opts = {},
+    -- https://github.com/williamboman/mason-lspconfig.nvim
+    "mason-org/mason-lspconfig.nvim",
+    opts = {
+      ensure_installed = {
+        "bashls",
+        "lua_ls",
+        -- "rust_analyzer",
+        "emmet_language_server",
+        "ts_ls",
+        -- "denols",
+        "astro",
+        "svelte",
+        "pyright",
+        "eslint",
+        "tailwindcss",
+        "yamlls",
+      },
+    },
+    dependencies = {
+      { "mason-org/mason.nvim", opts = {} },
+      {
+        "neovim/nvim-lspconfig",
+        init = function()
+          -- Reserve a space in the gutter
+          -- This will avoid an annoying layout shift in the screen
+          vim.opt.signcolumn = "yes"
+        end,
+        config = function()
+          vim.lsp.config("*", {
+            capabilities = require("cmp_nvim_lsp").default_capabilities(),
+          })
+          -- LspAttach is where you enable features that only work
+          -- if there is a language server active in the file
+          vim.api.nvim_create_autocmd("LspAttach", {
+            desc = "LSP actions",
+            callback = function(event)
+              local opts = { buffer = event.buf }
+
+              vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+              vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+              vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, opts)
+              vim.keymap.set({ "n", "x" }, "<F3>", function()
+                vim.lsp.buf.format({
+                  async = true,
+                })
+              end, opts)
+            end,
+          })
+        end,
+        dependencies = {
+          {
+            "folke/lazydev.nvim",
+            ft = "lua", -- only load on lua files
+            opts = {
+              library = {
+                -- Load luvit types when the `vim.uv` word is found
+                { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+              },
+            },
+          },
+        },
+      },
+    },
   },
 
   {
@@ -11,6 +70,8 @@ return {
     "hrsh7th/nvim-cmp",
     event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
+      -- https://github.com/hrsh7th/cmp-nvim-lsp
+      "hrsh7th/cmp-nvim-lsp",
       -- https://github.com/hrsh7th/cmp-buffer
       "hrsh7th/cmp-buffer",
       -- https://github.com/hrsh7th/cmp-path
@@ -106,138 +167,11 @@ return {
   },
 
   {
-    -- https://github.com/neovim/nvim-lspconfig
-    "neovim/nvim-lspconfig",
-    cmd = { "LspInfo", "LspInstall", "LspStart" },
-    event = { "BufReadPre", "BufNewFile" },
-    dependencies = {
-      -- https://github.com/hrsh7th/cmp-nvim-lsp
-      "hrsh7th/cmp-nvim-lsp",
-      -- https://github.com/williamboman/mason-lspconfig.nvim
-      "mason-org/mason-lspconfig.nvim",
-      {
-        "folke/lazydev.nvim",
-        ft = "lua", -- only load on lua files
-        opts = {
-          library = {
-            -- Load luvit types when the `vim.uv` word is found
-            { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-          },
-        },
-      },
-    },
-    init = function()
-      -- Reserve a space in the gutter
-      -- This will avoid an annoying layout shift in the screen
-      vim.opt.signcolumn = "yes"
-    end,
-    config = function()
-      local lsp_defaults = require("lspconfig").util.default_config
-
-      -- Add cmp_nvim_lsp capabilities settings to lspconfig
-      -- This should be executed before you configure any language server
-      lsp_defaults.capabilities = vim.tbl_deep_extend(
-        "force",
-        lsp_defaults.capabilities,
-        require("cmp_nvim_lsp").default_capabilities()
-      )
-
-      -- LspAttach is where you enable features that only work
-      -- if there is a language server active in the file
-      vim.api.nvim_create_autocmd("LspAttach", {
-        desc = "LSP actions",
-        callback = function(event)
-          local opts = { buffer = event.buf }
-
-          vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", opts)
-          vim.keymap.set(
-            "n",
-            "gd",
-            "<cmd>lua vim.lsp.buf.definition()<cr>",
-            opts
-          )
-          vim.keymap.set(
-            "n",
-            "gD",
-            "<cmd>lua vim.lsp.buf.declaration()<cr>",
-            opts
-          )
-          vim.keymap.set(
-            "n",
-            "gi",
-            "<cmd>lua vim.lsp.buf.implementation()<cr>",
-            opts
-          )
-          vim.keymap.set(
-            "n",
-            "go",
-            "<cmd>lua vim.lsp.buf.type_definition()<cr>",
-            opts
-          )
-          vim.keymap.set(
-            "n",
-            "gr",
-            "<cmd>lua vim.lsp.buf.references()<cr>",
-            opts
-          )
-          vim.keymap.set(
-            "n",
-            "gs",
-            "<cmd>lua vim.lsp.buf.signature_help()<cr>",
-            opts
-          )
-          vim.keymap.set("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
-          vim.keymap.set(
-            { "n", "x" },
-            "<F3>",
-            "<cmd>lua vim.lsp.buf.format({async = true})<cr>",
-            opts
-          )
-          vim.keymap.set(
-            "n",
-            "<F4>",
-            "<cmd>lua vim.lsp.buf.code_action()<cr>",
-            opts
-          )
-        end,
-      })
-
-      require("mason-lspconfig").setup({
-        ensure_installed = {
-          "bashls",
-          "lua_ls",
-          -- "rust_analyzer",
-          "emmet_language_server",
-          "ts_ls",
-          -- "denols",
-          "astro",
-          "svelte",
-          "pyright",
-          "eslint",
-          "tailwindcss",
-          "yamlls",
-        },
-
-        automatic_enable = true,
-        automatic_installation = false,
-
-        handlers = {
-          function(server_name)
-            require("lspconfig")[server_name].setup({})
-          end,
-
-          lua_ls = function()
-            require("lspconfig").lua_ls.setup({})
-          end,
-        },
-      })
-    end,
-  },
-  {
     "mrcjkb/rustaceanvim",
     version = "^6", -- Recommended
     lazy = false, -- This plugin is already lazy
   },
+
   {
     "ray-x/lsp_signature.nvim",
     event = "InsertEnter",
@@ -250,6 +184,7 @@ return {
       hint_enable = true,
     },
   },
+
   {
     "luckasRanarison/tailwind-tools.nvim",
     name = "tailwind-tools",
