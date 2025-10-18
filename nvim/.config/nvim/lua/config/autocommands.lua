@@ -85,7 +85,7 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("FileType", {
   desc = "Create print/log statement for highlighted selection",
   group = vim.api.nvim_create_augroup(
-    "create-print-statement-for-highlighted-rust",
+    "create-print-statement-for-highlighted-python",
     { clear = true }
   ),
   pattern = { "python" },
