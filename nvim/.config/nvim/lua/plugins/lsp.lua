@@ -196,6 +196,9 @@ return {
       "neovim/nvim-lspconfig", -- optional
     },
     opts = {
+      server = {
+        override = false,
+      },
       extension = {
         queries = {}, -- a list of filetypes having custom `class` queries
         patterns = { -- a map of filetypes to Lua pattern lists
