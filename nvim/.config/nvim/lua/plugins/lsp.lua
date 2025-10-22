@@ -2,6 +2,7 @@ return {
   {
     -- https://github.com/williamboman/mason-lspconfig.nvim
     "mason-org/mason-lspconfig.nvim",
+    event = { "BufReadPost", "BufNewFile" },
     opts = {
       ensure_installed = {
         "bashls",
