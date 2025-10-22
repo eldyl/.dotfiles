@@ -70,7 +70,7 @@ source "$HOME/.zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
 export fpath=($HOME/.zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh $fpath)
 export TERM=wezterm
 export EDITOR=nvim
-export BROWSER=brave
+export BROWSER=zen-browser
 export GPG_TTY=$(tty) # add gpg key to TTY
 
 bindkey -v # select using vi mode
