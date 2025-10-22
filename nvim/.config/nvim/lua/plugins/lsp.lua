@@ -82,8 +82,6 @@ return {
       "saadparwaiz1/cmp_luasnip",
       -- https://github.com/onsails/lspkind.nvim
       "onsails/lspkind-nvim",
-      -- https://github.com/luckasRanarison/tailwind-tools.nvim
-      "tailwind-tools",
       {
         -- https://github.com/L3MON4D3/LuaSnip
         "L3MON4D3/LuaSnip",
