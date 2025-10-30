@@ -34,6 +34,14 @@ keymap("n", "<leader>dp", function()
   vim.diagnostic.jump({ count = -1, float = true })
 end, opts)
 
+-- Render diagnostic info with virtual text
+local diagnostics_virtual_text_active = true
+vim.diagnostic.config({ virtual_text = diagnostics_virtual_text_active })
+keymap("n", "<leader>dv", function()
+  diagnostics_virtual_text_active = not diagnostics_virtual_text_active
+  vim.diagnostic.config({ virtual_text = diagnostics_virtual_text_active })
+end)
+
 -- Diagnostic toggle
 local diagnostics_active = true
 keymap("n", "<leader>dd", function()
