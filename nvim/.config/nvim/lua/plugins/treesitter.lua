@@ -80,9 +80,7 @@ return {
     dependencies = { "nvim-treesitter" },
     ft = "rust",
     build = ":TSUpdate",
-    config = function()
-      require("tree-sitter-rstml").setup()
-    end,
+    opts = {},
   },
 
   -- Auto create end tag for html elements
@@ -96,7 +94,6 @@ return {
   -- https://github.com/windwp/nvim-autopairs
   {
     "windwp/nvim-autopairs",
-    dependencies = { "nvim-treesitter" },
     config = true,
     -- use opts = {} for passing setup options
     -- this is equivalent to setup({}) function
