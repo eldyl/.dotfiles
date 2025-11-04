@@ -8,11 +8,6 @@ function M.apply_to_config(config)
 
   local hostname = wezterm.hostname()
 
-  local dot = hostname:find("[.]")
-  if dot then
-    hostname = hostname:sub(1, dot - 1)
-  end
-
   local default_workspace_name = HOME_ICON .. hostname
 
   config.default_workspace = default_workspace_name
