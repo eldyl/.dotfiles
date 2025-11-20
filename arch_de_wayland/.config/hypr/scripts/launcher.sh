@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Application launcer is used with keybinds to launch specific applications in 
+# a specific workspace if not open or switch to the application that is in its 
+# workspace if the application is running
 
 workspace=$1
 app=$2
