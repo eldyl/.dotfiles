@@ -6,8 +6,7 @@ function M.apply_to_config(config)
   config.colors = {
     foreground = "#c0caf5",
 
-    -- background = "#000000",
-    background = "#1a1b26",
+    background = "#101014", -- a bit darker background for better contrast
 
     cursor_bg = "#c0caf5",
     cursor_fg = "#1a1b26",
