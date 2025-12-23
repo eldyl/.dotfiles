@@ -28,8 +28,6 @@ return {
         "prettier",
         "--write ",
         ".",
-        "--plugin=prettier-plugin-astro",
-        "--plugin=prettier-plugin-tailwindcss",
       },
       fname = true,
       stdin = true,
