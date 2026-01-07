@@ -8,10 +8,10 @@
 # things down
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:git*' formats "%F{#9ece6a}(%f%F{#94DAE6}:%b%F{#9ece6a})%f%u%c%m"
-zstyle ':vcs_info:git*' actionformats "%F{#9ece6a}(%f%F{#94DAE6}:%b%F{#9ece6a})%f%u%c%m"
-zstyle ':vcs_info:*' unstagedstr '%F{#f7768e}󰇂%f '
-zstyle ':vcs_info:*' stagedstr '%F{#9ece6a}+%f '
+zstyle ':vcs_info:git*' formats "%F{#9ece6a}(%f%F{#94DAE6}%b%F{#9ece6a})%f%u%c%m"
+zstyle ':vcs_info:git*' actionformats "%F{#9ece6a}(%f%F{#94DAE6} -> %b%F{#9ece6a})%f%u%c%m"
+zstyle ':vcs_info:*' unstagedstr "%F{#f7768e}󰇂%f"
+zstyle ':vcs_info:*' stagedstr "%F{#9ece6a}+%f"
 precmd() {
     vcs_info
 
@@ -43,8 +43,8 @@ zstyle ':vcs_info:git*+set-message:*' hooks git-st
     ahead=${ahead_and_behind[1]}
     behind=${ahead_and_behind[2]}
 
-    (( $ahead )) && gitstatus+=( "%F{#94DAE6}+${ahead}%f " )
-    (( $behind )) && gitstatus+=( "%F{#f7768e}-${behind}%f " )
+    (( $ahead )) && gitstatus+=( "%F{#94DAE6}+${ahead}%f" )
+    (( $behind )) && gitstatus+=( "%F{#f7768e}-${behind}%f" )
 
     hook_com[misc]+=${(j:/:)gitstatus}
 }
