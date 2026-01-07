@@ -53,3 +53,10 @@ set.wildignore:append(".DS_Store")
 set.iskeyword:append("-")
 -- Change symbol for diffview
 set.fillchars:append({ diff = "╱" })
+
+-- Declare that .env.* files are `sh` files to enable bashls to attach to buffer
+vim.filetype.add({
+  pattern = {
+    ["%.env%..*"] = "sh",
+  },
+})
