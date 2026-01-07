@@ -85,6 +85,11 @@ SAVEHIST=10000
 autoload -Uz compinit
 compinit
 
+# Open buffer in text editor
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^x^e' edit-command-line
+
 #--------------------------
 #       Set Environment
 #--------------------------
