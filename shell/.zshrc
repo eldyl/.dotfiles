@@ -121,10 +121,6 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # Deno
 . "$HOME/.deno/env"
 
-# Android dev
-[[ "$OS" == "$L" ]] && export ANDROID_HOME="$HOME/Utils/Android/sdk"
-[[ "$OS" == "$L" ]] && export CAPACITOR_ANDROID_STUDIO_PATH="/opt/android-studio/bin/studio.sh"
-
 #------------------
 #~~~~ Aliases ~~~~#
 #------------------
