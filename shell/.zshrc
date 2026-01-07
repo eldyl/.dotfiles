@@ -125,10 +125,6 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 [[ "$OS" == "$L" ]] && export ANDROID_HOME="$HOME/Utils/Android/sdk"
 [[ "$OS" == "$L" ]] && export CAPACITOR_ANDROID_STUDIO_PATH="/opt/android-studio/bin/studio.sh"
 
-# .NET
-export PATH="$PATH:$HOME/.dotnet/tools"
-DOTNET_CLI_TELEMETRY_OPTOUT=1
-
 #------------------
 #~~~~ Aliases ~~~~#
 #------------------
