@@ -55,6 +55,8 @@ return {
       stdin = true
     })
 
+    ft("nix"):fmt("alejandra")
+
     vim.g.guard_config = {
       -- format on write to buffer
       fmt_on_save = false,
