@@ -49,6 +49,12 @@ return {
 
     ft("java"):fmt("google-java-format")
 
+    ft("bash,zsh,sh"):fmt({
+      cmd = "beautysh",
+      args = {"-"},
+      stdin = true
+    })
+
     vim.g.guard_config = {
       -- format on write to buffer
       fmt_on_save = false,
