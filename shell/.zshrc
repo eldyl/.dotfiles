@@ -15,10 +15,13 @@ zstyle ':vcs_info:*' stagedstr "%F{#9ece6a}+%f"
 precmd() {
     vcs_info
 
+    local in_nix_env=""
+    [[ -n "$NIX_BINTOOLS" ]] && in_nix_env="%F{#5277C3}󱄅 nix%f"
+
     if [[ -z ${vcs_info_msg_0_} ]]; then
-        PS1="%F{#317490}[%F{#c0caf5}%n@%m%F{#317490}]%f %5 %F{#317490}[%F{#c0caf5}%~%F{#317490}]%f % %F{#317490}>%f "
+        PS1="%F{#317490}[%F{#c0caf5}%n@%m%F{#317490}]%f %5 %F{#317490}[%F{#c0caf5}%~%F{#317490}]%f ${in_nix_env} % %F{#317490}>%f "
     else
-        PS1="%F{#317490}[%F{#c0caf5}%n@%m%F{#317490}]%f %3 %F{#317490}[%F{#c0caf5}%~%F{#317490}]%f ${vcs_info_msg_0_}%  %F{#317490}>%f "
+        PS1="%F{#317490}[%F{#c0caf5}%n@%m%F{#317490}]%f %3 %F{#317490}[%F{#c0caf5}%~%F{#317490}]%f ${in_nix_env} ${vcs_info_msg_0_}%  %F{#317490}>%f "
     fi
 
     RPROMPT="%F{#c0caf5}%T%f"
