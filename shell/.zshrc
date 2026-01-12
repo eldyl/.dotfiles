@@ -111,8 +111,8 @@ export PATH="$HOME/.local/bin:$PATH"
 # pnpm
 export PNPM_HOME="$HOME/.local/share/pnpm"
 case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
+    *":$PNPM_HOME:"*) ;;
+    *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 
 # bun
@@ -160,7 +160,7 @@ alias gpush='git push'
 alias gpull='git pull'
 
 #------------------------
-#    Keybindings 
+#    Keybindings
 #------------------------
 
 # Create a zkbd compatible hash
@@ -171,15 +171,15 @@ key[Delete]="${terminfo[kdch1]}"
 [[ -n "${key[Delete]}"    ]] && bindkey -- "${key[Delete]}"     delete-char
 # Make sure terminal is in application mode
 if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
-	autoload -Uz add-zle-hook-widget
-	function zle_application_mode_start { echoti smkx }
-	function zle_application_mode_stop { echoti rmkx }
-	add-zle-hook-widget -Uz zle-line-init zle_application_mode_start
-	add-zle-hook-widget -Uz zle-line-finish zle_application_mode_stop
+    autoload -Uz add-zle-hook-widget
+    function zle_application_mode_start { echoti smkx }
+    function zle_application_mode_stop { echoti rmkx }
+    add-zle-hook-widget -Uz zle-line-init zle_application_mode_start
+    add-zle-hook-widget -Uz zle-line-finish zle_application_mode_stop
 fi
 
 #------------------------
-#  Choose SSH_AUTH_SOCK 
+#  Choose SSH_AUTH_SOCK
 #------------------------
 
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] || [ -n "$SSH_CONNECTION" ] || pgrep -f "ssh.*$(whoami)" >/dev/null 2>&1; then
