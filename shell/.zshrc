@@ -144,6 +144,9 @@ alias cb='cargo build'
 alias cx='cargo xtask'
 alias cwa='cargo watch -x check -x test -x run'
 
+# Nix
+alias nd='nix develop -c zsh'
+
 # Access sudo crontab
 [[ "$OS" == "$L" ]] &&  alias sudocrontab="su -c $(printf "%q " "crontab -e")"
 
