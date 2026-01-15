@@ -3,7 +3,7 @@ local colors = require("config.colors.tokyonight_night")
 local keys = require("config.keys")
 local status_line = require("config.status_line")
 local startup = require("config.startup")
-local domains = require("config.domains")
+local domains_ok, domains = pcall(require, "config.domains")
 local workspacinator =
   wezterm.plugin.require("https://github.com/eldyl/workspacinator.wezterm")
 
@@ -30,7 +30,7 @@ status_line.apply_to_config(config)
 
 startup.apply_to_config(config)
 
-if domains then
+if domains_ok and domains then
   domains.apply_to_config(config)
 end
 
