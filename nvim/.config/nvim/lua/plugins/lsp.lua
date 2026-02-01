@@ -85,22 +85,19 @@ return {
             end,
           })
         end,
-        dependencies = {
-          {
-            "folke/lazydev.nvim",
-            ft = "lua", -- only load on lua files
-            opts = {
-              library = {
-                -- Load luvit types when the `vim.uv` word is found
-                { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-              },
-            },
-          },
-        },
       },
     },
   },
-
+  {
+    "folke/lazydev.nvim",
+    ft = "lua", -- only load on lua files
+    opts = {
+      library = {
+        -- Load luvit types when the `vim.uv` word is found
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+      },
+    },
+  },
   {
     -- https://github.com/hrsh7th/nvim-cmp
     "hrsh7th/nvim-cmp",
