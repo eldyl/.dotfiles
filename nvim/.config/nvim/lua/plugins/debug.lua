@@ -5,12 +5,15 @@ return {
     "theHamsta/nvim-dap-virtual-text",
     "nvim-neotest/nvim-nio",
     "williamboman/mason.nvim",
+    "mfussenegger/nvim-dap-python",
   },
   config = function()
     local dap = require("dap")
     local ui = require("dapui")
 
     require("dapui").setup()
+    require("nvim-dap-virtual-text").setup({})
+    require("dap-python").setup("python3")
 
     vim.keymap.set("n", "<space>b", dap.toggle_breakpoint)
     vim.keymap.set("n", "<space>dc", dap.run_to_cursor)
