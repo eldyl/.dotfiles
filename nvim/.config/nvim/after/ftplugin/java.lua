@@ -1,7 +1,5 @@
 local os = os.getenv("OS")
 
-vim.opt_local.shiftwidth = 2 -- match google-java-fromat
-
 local jdtls_path
 
 if os == "Linux" then
