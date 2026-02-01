@@ -47,7 +47,11 @@ return {
 
     ft("python"):fmt("black")
 
-    ft("java"):fmt("google-java-format")
+    ft("java"):fmt({
+      cmd = "google-java-format",
+      args = { "--aosp", "-" },
+      stdin = true,
+    })
 
     ft("bash,zsh,sh"):fmt({
       cmd = "beautysh",
