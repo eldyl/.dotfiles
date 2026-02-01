@@ -10,7 +10,7 @@ return {
         -- "rust_analyzer",
         "emmet_language_server",
         "ts_ls",
-        -- "denols",
+        "denols",
         "astro",
         "svelte",
         "pyright",
@@ -34,6 +34,38 @@ return {
           })
 
           vim.lsp.enable({ "nixd" })
+
+          vim.g.markdown_fenced_languages = {
+            "ts=typescript",
+          }
+          -- https://docs.deno.com/runtime/getting_started/setup_your_environment/#neovim-0.6%2B-using-the-built-in-language-server
+          vim.lsp.config("denols", {
+            root_dir = function(bufnr, on_dir)
+              local fname = vim.api.nvim_buf_get_name(bufnr)
+              local deno_root =
+                vim.fs.root(fname, { "deno.json", "deno.jsonc" })
+              if deno_root then
+                on_dir(deno_root)
+              end
+            end,
+          })
+
+          vim.lsp.config("ts_ls", {
+            root_dir = function(bufnr, on_dir)
+              local fname = vim.api.nvim_buf_get_name(bufnr)
+              local deno_root =
+                vim.fs.root(fname, { "deno.json", "deno.jsonc" })
+              if deno_root then
+                return nil
+              end
+              local ts_root =
+                vim.fs.root(fname, { "package.json", "tsconfig.json" })
+              if ts_root then
+                on_dir(ts_root)
+              end
+            end,
+            single_file_support = false,
+          })
 
           -- LspAttach is where you enable features that only work
           -- if there is a language server active in the file
