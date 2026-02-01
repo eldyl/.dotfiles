@@ -55,8 +55,8 @@ return {
 
     ft("bash,zsh,sh"):fmt({
       cmd = "beautysh",
-      args = {"-"},
-      stdin = true
+      args = { "-" },
+      stdin = true,
     })
 
     ft("nix"):fmt("alejandra")
