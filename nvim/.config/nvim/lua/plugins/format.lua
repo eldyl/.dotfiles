@@ -12,8 +12,14 @@ return {
     local ft = require("guard.filetype")
 
     ft(
-      "typescript,javascript,typescriptreact,javascriptreact,vue,svelte,css,json,jsonc,yaml"
+      "typescript,javascript,typescriptreact,javascriptreact,vue,svelte,css,yaml"
     ):fmt("prettier")
+
+    ft("json,jsonc"):fmt({
+      cmd = "prettier",
+      args = { "--write", "--trailing-comma", "none" },
+      fname = true,
+    })
 
     ft("markdown,mdx"):fmt({
       cmd = "prettier",
