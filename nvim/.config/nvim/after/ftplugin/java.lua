@@ -1,11 +1,9 @@
 local os = os.getenv("OS")
 
-local jdtls_path
+local jdtls_path = vim.fn.exepath("jdtls")
 
-if os == "Linux" then
-  jdtls_path = "/bin/jdtls"
-elseif os == "Darwin" then
-  jdtls_path = "/opt/homebrew/bin/jdtls"
+if jdtls_path == "" then
+  vim.notify("jdtls not found in path", vim.log.levels.ERROR)
 end
 
 local config = {
